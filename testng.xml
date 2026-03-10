@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
-    <test name="Parallel Testing" parallel="methods" thread-count="2">
-        <classes>
-            <class name="org.sample.ParallelDemo">
-                <methods>
-                    <include name="test1"/>
-                    <include name="test2"/>
-                </methods>
-            </class>
-<!--            <class name="org.sample.Sample">-->
+<suite name="Regression Suite">
+    <test name="Book Store Tests">
+        <packages>
+            <package name="org.sample.tests" />
+        </packages>
+    </test>
+<!--    <test name="Book Store Parallel Testing" parallel="methods" thread-count="2">-->
+<!--        <classes>-->
+<!--            <class name="org.sample.tests.HealthTest">-->
 <!--                <methods>-->
-<!--                    <include name="testGoogleSearch"/>-->
+<!--                    <include name="verifyHomePageLoading"/>-->
 <!--                </methods>-->
 <!--            </class>-->
-        </classes>
-    </test>
+<!--            <class name="org.sample.tests.SearchBookTest">-->
+<!--                <methods>-->
+<!--                    <include name="searchABook"/>-->
+<!--                    <include name="verifyBookIsbn"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
