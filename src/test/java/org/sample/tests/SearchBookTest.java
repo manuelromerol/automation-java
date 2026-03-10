@@ -1,9 +1,5 @@
 package org.sample.tests;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -11,13 +7,7 @@ import org.sample.steps.HomeSteps;
 import org.sample.utils.Constants;
 import org.sample.steps.BookDetailsSteps;
 
-public class SearchBookTest {
-    private WebDriver driver;
-
-    @BeforeClass
-    public void setUp() {
-        driver = new ChromeDriver();
-    }
+public class SearchBookTest extends BaseTest {
 
     @Test(priority = 1, description = "Search a book")
     public void searchABook() {
@@ -48,10 +38,4 @@ public class SearchBookTest {
         bookSteps.returnToBookStorePage();
     }
 
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 }
