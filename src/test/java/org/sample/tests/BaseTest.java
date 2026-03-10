@@ -27,7 +27,13 @@ public class BaseTest {
         }
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+
+        if (isHeadless) {
+            // Explicitly set the size again via the driver to override the 800x600 default
+            driver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
+        } else {
+            driver.manage().window().maximize();
+        }
     }
 
     @AfterMethod
@@ -35,5 +41,9 @@ public class BaseTest {
         if (driver != null) {
             driver.quit();
         }
+    }
+
+    public WebDriver getDriver() {
+        return this.driver;
     }
 }

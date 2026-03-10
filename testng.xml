@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Regression Suite">
+    <listeners>
+        <listener class-name="org.sample.utils.TestListener" />
+    </listeners>
     <test name="Book Store Tests">
         <packages>
             <package name="org.sample.tests" />
         </packages>
+<!--        <classes>-->
+<!--            <class name="org.sample.tests.SearchBookTest">-->
+<!--                <methods>-->
+<!--                    <include name="searchABook"/>-->
+<!--                    <include name="verifyBookIsbn"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
     </test>
 <!--    <test name="Book Store Parallel Testing" parallel="methods" thread-count="2">-->
 <!--        <classes>-->
