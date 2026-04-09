@@ -4,15 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import org.sample.tests.BaseTest;
 
 public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
         System.out.println("------- TEST FAILED: " + result.getName() + " -------");
-        Object currentClass = result.getInstance();
-        WebDriver driver = ((BaseTest) currentClass).getDriver();
+        WebDriver driver = DriverManager.getDriver();
 
         if (driver != null) {
             ScreenshotUtils.capture(driver, result.getName());

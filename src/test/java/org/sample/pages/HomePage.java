@@ -1,6 +1,5 @@
 package org.sample.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +8,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.sample.utils.Constants;
+import org.sample.utils.DriverManager;
 
 public class HomePage extends BasePage {
     @FindBy(id = "searchBox")
@@ -20,30 +20,33 @@ public class HomePage extends BasePage {
     @FindBy(css = "table tbody > tr a")
     private List<WebElement> bookLinks;
 
-    public HomePage(WebDriver driver) {
-        super(driver);
+    public HomePage() {
+        super();
     }
 
-    public void navigateToHomePage() {
-        driver.get(Constants.HOME_PAGE_URL);
+    public HomePage navigateToHomePage() {
+        DriverManager.getDriver().get(Constants.HOME_PAGE_URL);
         waitForPageToLoad();
         waitUntilElementIsVisible(searchBookInput);
+        return this;
     }
 
     public String getPageTitle() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.titleContains(Constants.HOME_PAGE_TITLE));
-        return driver.getTitle();
+        return DriverManager.getDriver().getTitle();
     }
 
-    public void searchBook(String term) {
+    public HomePage searchBook(String term) {
         sendText(searchBookInput, term);
+        return this;
     }
 
-    public void openFirstBook() {
+    public HomePage openFirstBook() {
         if (!bookLinks.isEmpty()) {
             waitAndClick(bookLinks.get(0));
         }
+        return this;
     }
 
     public int getVisibleBookCount() {

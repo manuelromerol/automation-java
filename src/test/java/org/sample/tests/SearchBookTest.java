@@ -11,7 +11,7 @@ public class SearchBookTest extends BaseTest {
 
     @Test(priority = 1, description = "Search a book")
     public void searchABook() {
-        HomeSteps homeSteps = new HomeSteps(driver);
+        HomeSteps homeSteps = new HomeSteps();
         homeSteps.navigateToHomePage();
         homeSteps.searchBook("Git");
 
@@ -23,8 +23,8 @@ public class SearchBookTest extends BaseTest {
 
     @Test(priority = 2, description = "Verify book ISBN")
     public void verifyBookIsbn() {
-        HomeSteps homeSteps = new HomeSteps(driver);
-        BookDetailsSteps bookSteps = new BookDetailsSteps(driver);
+        HomeSteps homeSteps = new HomeSteps();
+        BookDetailsSteps bookSteps = new BookDetailsSteps();
 
         // TODO: Comment following two lines when running in parallel
         homeSteps.navigateToHomePage();

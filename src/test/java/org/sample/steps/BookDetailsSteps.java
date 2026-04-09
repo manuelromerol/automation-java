@@ -1,13 +1,13 @@
 package org.sample.steps;
 
-import org.openqa.selenium.WebDriver;
 import org.sample.pages.BookDetailsPage;
+import org.sample.pages.PageManager;
 
 public class BookDetailsSteps {
     private final BookDetailsPage bookDetailsPage;
 
-    public BookDetailsSteps(WebDriver driver) {
-        this.bookDetailsPage = new BookDetailsPage(driver);
+    public BookDetailsSteps() {
+        this.bookDetailsPage = PageManager.getPages().getBookDetailsPage();
     }
 
     public String getBookIsbn() {

@@ -4,12 +4,14 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.sample.pages.PageManager;
+import org.sample.pages.PageObjectsCentral;
 import org.sample.utils.ConfigReader;
+import org.sample.utils.DriverManager;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
-    protected WebDriver driver;
 
     @BeforeMethod
     public void setUp() {
@@ -26,24 +28,28 @@ public class BaseTest {
             options.addArguments("--disable-dev-shm-usage");
         }
 
-        driver = new ChromeDriver(options);
+        // 1. Initialize local driver
+        WebDriver driverInstance = new ChromeDriver(options);
+
+        // 2. Register Driver Manager in ThreadLocal Manager
+        DriverManager.setDriver(driverInstance);
+
+        // 3. Register Page Manager in ThreadLocal Manager
+        PageManager.setPages(new PageObjectsCentral());
 
         if (isHeadless) {
-            // Explicitly set the size again via the driver to override the 800x600 default
-            driver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
+            DriverManager.getDriver().manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
         } else {
-            driver.manage().window().maximize();
+            DriverManager.getDriver().manage().window().maximize();
         }
     }
 
     @AfterMethod
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverManager.quitDriver();
     }
 
     public WebDriver getDriver() {
-        return this.driver;
+        return DriverManager.getDriver();
     }
 }

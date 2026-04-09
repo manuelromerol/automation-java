@@ -1,13 +1,13 @@
 package org.sample.steps;
 
-import org.openqa.selenium.WebDriver;
 import org.sample.pages.HomePage;
+import org.sample.pages.PageManager;
 
 public class HomeSteps {
     private final HomePage homePage;
 
-    public HomeSteps(WebDriver driver) {
-        this.homePage = new HomePage(driver);
+    public HomeSteps() {
+        this.homePage = PageManager.getPages().getHomePage();
     }
 
     public void navigateToHomePage() {
