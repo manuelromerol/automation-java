@@ -10,7 +10,7 @@ public class HealthTest extends BaseTest {
 
     @Test(description = "Verify Home Page is loading properly")
     public void verifyHomePageLoading() {
-        HomeSteps homeSteps = new HomeSteps(driver);
+        HomeSteps homeSteps = new HomeSteps();
         homeSteps.navigateToHomePage();
         String title = homeSteps.getPageTitle();
         Assert.assertTrue(title.contains(Constants.HOME_PAGE_TITLE),

@@ -1,52 +1,48 @@
 package org.sample.pages;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sample.utils.ConfigReader;
+import org.sample.utils.DriverManager;
 
-import java.time.Duration;
 import java.util.List;
 
 public abstract class BasePage {
-    protected WebDriver driver;
     protected WebDriverWait wait;
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(ConfigReader.getProperty("timeout"))));
-        PageFactory.initElements(driver, this);
+    public BasePage() {
+        this.wait = DriverManager.getWait();
+        PageFactory.initElements(DriverManager.getDriver(), this);
     }
 
     protected void waitForPageToLoad() {
         ExpectedCondition<Boolean> pageLoadCondition = d ->
                 ((JavascriptExecutor) d).executeScript("return document.readyState").equals("complete");
-        wait.until(pageLoadCondition);
+        this.wait.until(pageLoadCondition);
     }
 
     protected void waitUntilElementIsVisible(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
+        this.wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     protected void waitUntilAllElementsAreVisible(List<WebElement> element) {
-        wait.until(ExpectedConditions.visibilityOfAllElements(element));
+        this.wait.until(ExpectedConditions.visibilityOfAllElements(element));
     }
 
     protected void waitAndClick(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        this.wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
     protected String getText(WebElement element) {
-        return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+        return this.wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
 
     protected void sendText(WebElement element, String text) {
-        wait.until(ExpectedConditions.visibilityOf(element));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
+        this.wait.until(ExpectedConditions.visibilityOf(element));
+        this.wait.until(ExpectedConditions.elementToBeClickable(element));
 
 //        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
