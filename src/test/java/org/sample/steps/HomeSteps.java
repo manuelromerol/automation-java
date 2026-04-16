@@ -10,8 +10,9 @@ public class HomeSteps {
         this.homePage = PageManager.getPages().getHomePage();
     }
 
-    public void navigateToHomePage() {
+    public HomeSteps navigateToHomePage() {
         homePage.navigateToHomePage();
+        return this;
     }
 
     public String getPageTitle() {
@@ -20,12 +21,14 @@ public class HomeSteps {
         return title;
     }
 
-    public void searchBook(String term) {
+    public HomeSteps searchBook(String term) {
         homePage.searchBook(term);
+        return this;
     }
 
-    public void openFirstBookListed() {
+    public HomeSteps openFirstBookListed() {
         homePage.openFirstBook();
+        return this;
     }
 
     public int getNumberOfBooksDisplayed() {
