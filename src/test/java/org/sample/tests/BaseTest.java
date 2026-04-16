@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.sample.pages.PageManager;
 import org.sample.pages.PageObjectsCentral;
+import org.sample.steps.StepManager;
+import org.sample.steps.StepObjectsCentral;
 import org.sample.utils.ConfigReader;
 import org.sample.utils.DriverManager;
 import org.testng.annotations.AfterMethod;
@@ -36,6 +38,9 @@ public class BaseTest {
 
         // 3. Register Page Manager in ThreadLocal Manager
         PageManager.setPages(new PageObjectsCentral());
+
+        // 4. Register Steps Manager in ThreadLocal Manager
+        StepManager.setSteps(new StepObjectsCentral());
 
         if (isHeadless) {
             DriverManager.getDriver().manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));

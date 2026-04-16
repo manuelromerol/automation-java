@@ -1,5 +1,6 @@
 package org.sample.tests;
 
+import org.sample.steps.StepManager;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -11,9 +12,8 @@ public class SearchBookTest extends BaseTest {
 
     @Test(priority = 1, description = "Search a book")
     public void searchABook() {
-        HomeSteps homeSteps = new HomeSteps();
-        homeSteps.navigateToHomePage();
-        homeSteps.searchBook("Git");
+        HomeSteps homeSteps = StepManager.getSteps().getHomeSteps();
+        homeSteps.navigateToHomePage().searchBook("Git");
 
         int bookCount = homeSteps.getNumberOfBooksDisplayed();
         Assert.assertTrue(bookCount > 0,
@@ -23,14 +23,10 @@ public class SearchBookTest extends BaseTest {
 
     @Test(priority = 2, description = "Verify book ISBN")
     public void verifyBookIsbn() {
-        HomeSteps homeSteps = new HomeSteps();
-        BookDetailsSteps bookSteps = new BookDetailsSteps();
+        HomeSteps homeSteps = StepManager.getSteps().getHomeSteps();
+        homeSteps.navigateToHomePage().searchBook("Git").openFirstBookListed();
 
-        // TODO: Comment following two lines when running in parallel
-        homeSteps.navigateToHomePage();
-        homeSteps.searchBook("Git");
-        homeSteps.openFirstBookListed();
-
+        BookDetailsSteps bookSteps = StepManager.getSteps().getBookDetailsSteps();
         String bookIsbn = bookSteps.getBookIsbn();
         Assert.assertEquals(bookIsbn, Constants.MAIN_ISBN,
                 "The ISBN on the details page does not match the expected constant.");
